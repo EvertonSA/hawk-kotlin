@@ -7,58 +7,44 @@ This repo suposed to be the Twitter Consumer but due to complications with the a
 
 ### Breeds
 
-breed object definition
+#### Breed object definition
 ```json
 {"id":"abys","name":"Abyssinian","origin":"Egypt","intelligence":5}
 ```
 
-breed endpoints
+#### Breed endpoints
+
+---
 
 **URL** : `/api/breeds/`
 
 **Method** : `GET`
 
-**Permissions required** : None
-
-**Data constraints** : `{}`
-
-## Success Responses
-
-**Condition** : User can not see any Accounts.
-
-**Code** : `200 OK`
+**Sucess Code** : `200 OK`
 
 **Content** : `{[{"id":"abys","name":"Abyssinian","origin":"Egypt","intelligence":5}]}`
+
+---
 
 **URL** : `/api/fetchBreeds/`
 
 **Method** : `GET`
 
-**Permissions required** : None
+**Success Condition** : Data fetched from The Cat API and saved into the db
 
-**Data constraints** : `{}`
-
-## Success Responses
-
-**Condition** : Data fetched from The Cat API and saved into the db
-
-**Code** : `200 OK`
+**Success Code** : `200 OK`
 
 **Content** : `{[{"id":"abys","name":"Abyssinian","origin":"Egypt","intelligence":5}]}`
+
+---
 
 **URL** : `/api/deleteBreeds/`
 
 **Method** : `GET`
 
-**Permissions required** : None
+**Success Condition** : Data deleted from the db
 
-**Data constraints** : `{}`
-
-## Success Responses
-
-**Condition** : Data deleted from the db
-
-**Code** : `200 OK`
+**Success Code** : `200 OK`
 
 **Content** : `{[{"id":"abys","name":"Abyssinian","origin":"Egypt","intelligence":5}]}`
 ```
