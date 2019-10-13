@@ -8,9 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner
 @RunWith(SpringRunner::class)
 @SpringBootTest
 class HawkApplicationTests {
-
-	@Test
-	fun contextLoads() {
-	}
-
+    @Test
+    public void testWhatEverYouThingNeedsToBeTested() throws Exception {
+        // Put you test code here
+    }
 }
