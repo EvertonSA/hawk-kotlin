@@ -8,10 +8,10 @@ import kotlinx.serialization.*
 @Document(collection = "users")
 @Serializable
 data class User (
-        @Id
-        @SerialName("id_str") val userId: String,
+
+        @Id @SerialName("id_str") val id_str: String,
         @SerialName("name") val name: String,
         @SerialName("location") val location: String,
-        @SerialName("lang") val lang: String,
+        @SerialName("lang") val lang: String?,
         @SerialName("followers_count") val followers_count: Int
 )

@@ -27,11 +27,16 @@ class HawkServiceImp : TwitterService {
     @Autowired
     lateinit var twitterProperties: TwitterProperties
 
+    @ImplicitReflectionSerializer
     override fun fetchTweetsByHashtags(): List<Tweet> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //ideal is to respond responseerros objects...
+        val list = TwitterConsumer(twitterProperties).fetchHashtagsTweetAPI() as MutableList
+        tweetRepository.deleteAll()
+        tweetRepository.insert(list)
+        return list
     }
 
-    override fun getAllTweets(): List<Tweet> {
+    override fun getAllTweets(): MutableList<Tweet> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -66,7 +71,7 @@ private class TwitterConsumer(twitterProperties: TwitterProperties) {
                 .build()
         val token = Klaxon().parse<Token>(client.newCall(tokenRequest).execute().body().string())
         val tweetRequest = Request.Builder()
-                .url("$apiUrl$apiUrlSearch" )
+                .url("$apiUrl$apiUrlSearch"+ "test" )
                 .addHeader("Authorization", "Bearer " + token?.access_token)
                 .get()
                 .build()
@@ -74,10 +79,10 @@ private class TwitterConsumer(twitterProperties: TwitterProperties) {
     }
 
     @ImplicitReflectionSerializer
-    fun fetchHashtagsTweetAPI(): String {
+    fun fetchHashtagsTweetAPI(): List<Tweet> {
         val client = OkHttpClient()
         val token = getToken(client)
-        val listTweets: List<Tweet>
+        val listTweets: MutableList <Tweet> = mutableListOf()
         for ( hashtag in hashtags ){
             val klaxon = Klaxon()
             val strTweets = token?.let { getTweets(client, it, hashtag) }
@@ -85,11 +90,9 @@ private class TwitterConsumer(twitterProperties: TwitterProperties) {
                     .parseJsonObject(StringReader(strTweets))
                     .array<Any>("statuses")
                     ?.let { klaxon.parseFromJsonArray<Tweet>(it) }
-            if (tweets != null) {
-                listTweets.plus(tweets)
-            }
+            if (tweets != null) listTweets += tweets
         }
-
+        return listTweets
     }
 
     private fun getTweets(client: OkHttpClient, token: Token, hashtag: String?): String? {
