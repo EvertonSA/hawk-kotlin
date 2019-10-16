@@ -10,4 +10,6 @@ interface TwitterService {
     fun fetchTweetsByHashtags() : List<Tweet>
 
     fun testTwitterAPI() : String
+
+    fun deleteAllTweets()
 }

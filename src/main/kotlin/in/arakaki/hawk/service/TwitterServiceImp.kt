@@ -34,10 +34,19 @@ class HawkServiceImp : TwitterService {
     override fun fetchTweetsByHashtags(): List<Tweet> {
         //ideal is to respond responseerros objects...
         val list = TwitterConsumer(twitterProperties).fetchHashtagsTweetAPI() as MutableList
-        logger.info("deletando ")
-        tweetRepository.deleteAll()
+        logger.info("Sending insert command to db")
         tweetRepository.insert(list)
+        while (tweetRepository.count() != list.size.toLong() ) { logger.info("waiting insertion") }
         return list
+    }
+
+    @ImplicitReflectionSerializer
+    override fun deleteAllTweets() {
+        //ideal is to respond responseerros objects...
+        val list = TwitterConsumer(twitterProperties).fetchHashtagsTweetAPI() as MutableList
+        logger.info("Sending deleltion command to db")
+        tweetRepository.deleteAll()
+        while (tweetRepository.count() != 0L ) { logger.info("waiting deletion") }
     }
 
     override fun getAllTweets(): MutableList<Tweet> {
