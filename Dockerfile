@@ -9,4 +9,4 @@ RUN gradle build --no-daemon
 # ---- Runner ----
 FROM openjdk:8-jre-alpine
 COPY --from=builder /home/gradle/src/build/libs/*.jar /app/kotlin-application.jar
-ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/kotlin-application.jar"]
+ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-Dlogging.level.org.springframework=TRACE", "-Djava.security.egd=file:/dev/./urandom","-jar","/app/kotlin-application.jar"]

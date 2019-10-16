@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 import kotlinx.serialization.*
+import mu.KotlinLogging
 import java.util.*
 
 import okhttp3.Request
@@ -21,6 +22,8 @@ import java.io.StringReader
 @Service("TweetService")
 class HawkServiceImp : TwitterService {
 
+    private val logger = KotlinLogging.logger {}
+
     @Autowired
     lateinit var tweetRepository: TweetRepository
 
@@ -31,6 +34,7 @@ class HawkServiceImp : TwitterService {
     override fun fetchTweetsByHashtags(): List<Tweet> {
         //ideal is to respond responseerros objects...
         val list = TwitterConsumer(twitterProperties).fetchHashtagsTweetAPI() as MutableList
+        logger.info("deletando ")
         tweetRepository.deleteAll()
         tweetRepository.insert(list)
         return list
