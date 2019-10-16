@@ -20,6 +20,7 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib:1.3.50")
 	compile("org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.10.0")
 	compile("com.squareup.okhttp3:okhttp:3.2.0")
+	compile("io.github.microutils:kotlin-logging:1.7.6")
 	implementation("com.beust:klaxon:5.1")
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
