@@ -13,7 +13,6 @@ class HawkController() {
     @Autowired
     lateinit var twitterService: TwitterService
 
-
     @GetMapping("/test")
     fun test(): String{
         return twitterService.testTwitterAPI()
@@ -24,19 +23,9 @@ class HawkController() {
         return twitterService.fetchTweetsByHashtags()
     }
 
-//    @GetMapping("/tweets/{hashtag}")
-//    fun getAllTweetsByHashtag(@PathVariable hashtag: String): List<Tweet> {
-//        return tweetService.getAllTweetsByHashtag(hashtag)
-//    }
-//
-//    @GetMapping("/user")
-//    fun getAllUsers(): List<User>{
-//        return userService.getAllUsers()
-//    }
-//
-//    @GetMapping("/tweets")
-//    fun getAllTweets(): List<Tweet> {
-//        return tweetService.getAllTweets()
-//    }
+    @GetMapping("/delete")
+    fun deleteAll() {
+        return twitterService.deleteAllTweets()
+    }
 
 }
