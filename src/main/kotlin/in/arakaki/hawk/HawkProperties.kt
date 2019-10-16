@@ -9,6 +9,7 @@ class TwitterProperties  : TwitterBaseUrlProperties() {
     lateinit var apiUrlOauth2: String
     lateinit var apiUrlSearch: String
     lateinit var credentials: String
+    lateinit var hashtags: String
 }
 
 abstract class TwitterBaseUrlProperties {
