@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document
 @Document(collection = "tweets")
 @Serializable
 data class Tweet(
-        @Id
         @SerialName("id_str") val id_str: String = "",
         @SerialName("user") val user: User,
         @SerialName("text") val text: String = "",
