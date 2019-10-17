@@ -5,4 +5,6 @@ metadata:
   labels:
 {{ include "chart.labels" . | indent 4 }}
 data:
-  MONGODB_URI: {{ .Values.index  }}
+  MONGODB_URI: {{ .Values.mongodb_uri  }}
+  TWITTER_CRD: {{ .Values.twitter_crd  }}
+  HASHTAGS:    {{ .Values.hashtags     }}
