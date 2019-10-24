@@ -2,62 +2,16 @@ package `in`.arakaki.hawk.service
 
 import `in`.arakaki.hawk.TwitterProperties
 import `in`.arakaki.hawk.model.Tweet
-import `in`.arakaki.hawk.repository.TweetRepository
 import com.beust.klaxon.Klaxon
-
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Service
-
-import kotlinx.serialization.*
-import mu.KotlinLogging
-import java.util.*
-
-import okhttp3.Request
-import okhttp3.RequestBody
+import kotlinx.serialization.ImplicitReflectionSerializer
+import kotlinx.serialization.Serializable
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
-import org.springframework.beans.factory.annotation.Value
+import okhttp3.Request
+import okhttp3.RequestBody
+import org.springframework.stereotype.Service
 import java.io.StringReader
-
-@Service("TweetService")
-class HawkServiceImp : TwitterService {
-
-    private val logger = KotlinLogging.logger {}
-
-    @Autowired
-    lateinit var tweetRepository: TweetRepository
-
-    @Autowired
-    lateinit var twitterProperties: TwitterProperties
-
-    @ImplicitReflectionSerializer
-    override fun fetchTweetsByHashtags(): List<Tweet> {
-        //ideal is to respond responseerros objects...
-        val list = TwitterConsumer(twitterProperties).fetchHashtagsTweetAPI() as MutableList
-        logger.info("Sending insert command to db")
-        tweetRepository.insert(list)
-        while (tweetRepository.count() != list.size.toLong() ) { logger.info("waiting insertion") }
-        return list
-    }
-
-    @ImplicitReflectionSerializer
-    override fun deleteAllTweets() {
-        //ideal is to respond responseerros objects...
-        val list = TwitterConsumer(twitterProperties).fetchHashtagsTweetAPI() as MutableList
-        logger.info("Sending deleltion command to db")
-        tweetRepository.deleteAll()
-        while (tweetRepository.count() != 0L ) { logger.info("waiting deletion") }
-    }
-
-    override fun getAllTweets(): MutableList<Tweet> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    @ImplicitReflectionSerializer
-    override fun testTwitterAPI(): String{
-        return TwitterConsumer(twitterProperties).testTweetAPI()
-    }
-}
+import java.util.*
 
 @Serializable
 data class Token(
@@ -65,7 +19,7 @@ data class Token(
         val access_token: String
 )
 
-private class TwitterConsumer(twitterProperties: TwitterProperties) {
+class TwitterConsumer(twitterProperties: TwitterProperties) {
 
     var apiUrl: String = twitterProperties.apiUrl
     var apiUrlOauth2: String = twitterProperties.apiUrlOauth2
@@ -128,6 +82,3 @@ private class TwitterConsumer(twitterProperties: TwitterProperties) {
     }
 
 }
-
-
-
