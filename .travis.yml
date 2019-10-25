@@ -1,0 +1,12 @@
+services:
+  - docker
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: dev
+
+before_install:
+  - docker build -t evearakaki/hawk-kotlin .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
