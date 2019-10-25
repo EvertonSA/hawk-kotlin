@@ -3,6 +3,9 @@ sudo: 'required'
 services:
   - 'docker'
 
+before_install:
+  - 'main.sh'
+
 script:
   - 'make test'
   - 'make image'
