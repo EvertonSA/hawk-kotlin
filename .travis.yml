@@ -9,8 +9,6 @@ before_install:
 script:
   - 'make test'
   - 'make image'
-  on:
-    branch: dev
 
 deploy:
   provider: script
