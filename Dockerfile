@@ -1,6 +1,3 @@
-# Version
-ENV HAWK_VERSION=0.0.1
-
 # Mvn Specific
 # ---- Builder ----
 FROM gradle:4.7.0-jdk8-alpine AS builder

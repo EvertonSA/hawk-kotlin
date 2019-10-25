@@ -1,16 +1,14 @@
-sudo: 'required'
+sudo: required
+language: minimal
 
 services:
-  - 'docker'
+  - docker
 
-script:
-  - 'make test'
-  - 'make image'
-  on:
-    branch: dev
+before_install:
+  - docker build -t evearakaki/hawk-kotlin .
 
 deploy:
   provider: script
-  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && make push-image
+  script: bash docker_push
   on:
     branch: dev
