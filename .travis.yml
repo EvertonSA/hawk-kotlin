@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t evearakaki/hawk-kotlin
+  - docker build -t ${DOCKER_USERNAME}/hawk-kotlin
 
 deploy:
   provider: script
