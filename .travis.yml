@@ -3,12 +3,11 @@ sudo: 'required'
 services:
   - 'docker'
 
-before_install:
-  - './.travis/main.sh'
-
 script:
   - 'make test'
   - 'make image'
+  on:
+    branch: dev
 
 deploy:
   provider: script
