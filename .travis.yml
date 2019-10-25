@@ -1,17 +1,10 @@
-sudo: 'required'
+sudo: required
+language: c
 
 services:
-  - 'docker'
-
-before_install:
-  - './main.sh'
+  - docker
 
 script:
-  - 'make test'
-  - 'make image'
-
-deploy:
-  provider: script
-  script: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD && make push-image
+  - make build tag push
   on:
     branch: dev
