@@ -3,6 +3,12 @@ language: c
 
 services:
   - docker
-  -
-script:
-  - make build tag push
+
+before_install:
+  - docker build -t evearakaki/hawk-kotlin
+
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: dev
