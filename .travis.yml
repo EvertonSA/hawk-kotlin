@@ -3,8 +3,6 @@ language: c
 
 services:
   - docker
-
+  -
 script:
   - make build tag push
-  on:
-    branch: dev
