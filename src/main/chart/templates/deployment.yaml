@@ -24,20 +24,43 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            # Define the environment variable
+            - name: MONGODB_URI
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: {{ include "chart.fullname" . }}
+                  # Specify the key associated with the value
+                  key: MONGODB_URI
+            - name: TWITTER_CRD
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: {{ include "chart.fullname" . }}
+                  # Specify the key associated with the value
+                  key: TWITTER_CRD
+            - name: HASHTAGS
+              valueFrom:
+                configMapKeyRef:
+                  # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+                  name: {{ include "chart.fullname" . }}
+                  # Specify the key associated with the value
+                  key: HASHTAGS
           ports:
             - name: http
               containerPort: 8080
               protocol: TCP
           readinessProbe:
             httpGet:
-              path: /health
+              path: /actuator/health
               port: 8080
             initialDelaySeconds: 45
             timeoutSeconds: 10
             failureThreshold: 10
           livenessProbe:
             httpGet:
-              path: /health
+              path: /actuator/health
               port: 8080
             initialDelaySeconds: 30
             timeoutSeconds: 10

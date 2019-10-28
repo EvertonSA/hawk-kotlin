@@ -1,8 +1,7 @@
 package `in`.arakaki.hawk.controller
 
-import `in`.arakaki.hawk.TwitterProperties
 import `in`.arakaki.hawk.model.Tweet
-import `in`.arakaki.hawk.service.TwitterService
+import `in`.arakaki.hawk.service.HawkService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -11,21 +10,21 @@ import org.springframework.web.bind.annotation.*
 class HawkController() {
 
     @Autowired
-    lateinit var twitterService: TwitterService
+    lateinit var hawkService: HawkService
 
     @GetMapping("/test")
     fun test(): String{
-        return twitterService.testTwitterAPI()
+        return hawkService.testTwitterAPI()
     }
 
     @GetMapping("/fetch")
     fun getAndSaveAllTweetsByHashtag(): List<Tweet> {
-        return twitterService.fetchTweetsByHashtags()
+        return hawkService.fetchTweetsByHashtags()
     }
 
     @GetMapping("/delete")
     fun deleteAll() {
-        return twitterService.deleteAllTweets()
+        return hawkService.deleteAllTweets()
     }
 
 }

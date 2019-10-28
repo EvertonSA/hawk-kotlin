@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "chart.fullname" . }}
+  labels:
+{{ include "chart.labels" . | indent 4 }}
+data:
+  MONGODB_URI: {{ .Values.envirolmentVariales.mongodb_uri  }}
+  TWITTER_CRD: {{ .Values.envirolmentVariales.twitter_crd  }}
+  HASHTAGS:    {{ .Values.envirolmentVariales.hashtags     }}
